@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body  style="background-color: #101010;">
+<body style="background-color: #101010;">
     <div id="app" align="center">
         <div v-if="!loggedIn">
             <h1 style="color: white;">Login</h1>
@@ -47,7 +47,7 @@
             },
             methods: {
                 login() {
-                    axios.post('http://localhost:3000/login', {
+                    axios.post('/login', {
                         username: this.username,
                         password: this.password
                     })
@@ -59,14 +59,16 @@
                             this.error = 'Login failed: Invalid credentials';
                         });
                 },
+
                 logout() {
-                    axios.post('http://localhost:3000/logout')
+                    axios.post('/logout')
                         .then(() => {
                             this.loggedIn = false;
                             this.username = '';
                             this.password = '';
                         });
                 }
+
             }
         });
     </script>

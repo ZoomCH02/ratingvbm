@@ -121,11 +121,11 @@ app.post('/rate', isAuthenticated, (req, res) => {
         rhymes_imagery +
         structure_rhythm +
         style_execution +
-        individuality_charisma;
+        individuality_charisma; //   40 + 20 + 30
 
     // Рассчитываем процентные добавления
     const atmosphereBonus = (atmosphere_vibe / 10) * baseScore; // 50% за 5, 40% за 4 и так далее
-    const trendinessBonus = (trendiness_genre_relevance / 10) * baseScore; // То же для trendiness_genre_relevance
+    const trendinessBonus = (trendiness_genre_relevance / 10) * (atmosphereBonus + baseScore); // То же для trendiness_genre_relevance
 
     const totalScore = Math.round(baseScore + atmosphereBonus + trendinessBonus);
 
