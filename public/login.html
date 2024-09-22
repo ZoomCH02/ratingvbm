@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body  style="background-color: #101010;">
+    <div id="app" align="center">
+        <div v-if="!loggedIn">
+            <h1 style="color: white;">Login</h1>
+            <form @submit.prevent="login">
+                <div>
+                    <label style="color: white;" for="username">Username:</label>
+                    <input type="text" v-model="username" id="username" required>
+                </div>
+                <br>
+                <div>
+                    <label style="color: white;" for="password">Password:</label>
+                    <input type="password" v-model="password" id="password" required>
+                </div>
+                <br>
+                <button style="border-radius: 10px; font-size: 20px;" type="submit">Login</button>
+            </form>
+            <p v-if="error">{{ error }}</p>
+        </div>
+
+        <div v-else>
+            <h1 style="color: white;">Welcome, {{ username }}!</h1>
+            <button @click="logout">Logout</button>
+            <a href="/reliseRate.html">go to rate</a>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                password: '',
+                error: '',
+                loggedIn: false
+            },
+            methods: {
+                login() {
+                    axios.post('http://localhost:3000/login', {
+                        username: this.username,
+                        password: this.password
+                    })
+                        .then(response => {
+                            this.loggedIn = true;
+                            this.error = '';
+                        })
+                        .catch(error => {
+                            this.error = 'Login failed: Invalid credentials';
+                        });
+                },
+                logout() {
+                    axios.post('http://localhost:3000/logout')
+                        .then(() => {
+                            this.loggedIn = false;
+                            this.username = '';
+                            this.password = '';
+                        });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

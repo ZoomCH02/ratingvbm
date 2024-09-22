@@ -1,0 +1,131 @@
+h5,
+p{
+    color: black;
+}
+
+h1,
+h3,
+h5,
+p{
+    font-weight: bold;
+}
+
+.imageCard {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Высота контейнера */
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; /* Высота заднего фона */
+    background-image: url('/img/webp/hornet.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px); /* Размытие фона */
+    border-radius: 20px;
+    z-index: 1; /* Позволяет задней картинке находиться за профилем */
+}
+
+.profilecss {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%; /* Картинка профиля в форме круга */
+    width: 130px;
+    height: 130px;
+    z-index: 2; /* Картинка профиля поверх фона */
+    border: 5px solid white; /* Рамка для профиля */
+}
+
+.releaseContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.releaseCover {
+    width: 200px; /* Задайте подходящий размер обложки */
+    height: 200px;
+    object-fit: cover; /* Убедитесь, что обложка не искажается */
+    border-radius: 20px;
+}
+
+.releaseInfo h5 {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.releaseInfo p {
+    font-size: 18px;
+}
+
+.statsContainer div {
+    text-align: center;
+    padding: 10px;
+}
+
+/* Основные стили остаются без изменений */
+
+.statsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .statsContainer {
+        flex-direction: column; /* Разместить элементы по вертикали на мобильных */
+        align-items: center;
+    }
+
+    .statsContainer div {
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .releaseCover {
+        width: 150px; /* Уменьшаем размер обложки */
+        height: 150px;
+    }
+
+    .releaseInfo h5 {
+        font-size: 20px; /* Уменьшаем шрифт для названия релиза */
+    }
+
+    .releaseInfo p {
+        font-size: 16px; /* Уменьшаем шрифт для артиста */
+    }
+}
+
+/* Стили для очень маленьких экранов (например, 480px) */
+@media (max-width: 480px) {
+    .releaseCover {
+        width: 120px;
+        height: 120px;
+    }
+
+    .releaseInfo h5 {
+        font-size: 18px;
+    }
+
+    .releaseInfo p {
+        font-size: 14px;
+    }
+
+    .profilecss {
+        width: 100px; /* Уменьшаем размер изображения профиля */
+        height: 100px;
+    }
+}
+
+.card{
+    border-radius: 20px;
+}

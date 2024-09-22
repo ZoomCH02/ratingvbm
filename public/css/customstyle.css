@@ -1,0 +1,76 @@
+.raitingFinalClass {
+    background-color: green;
+    font-size: 40px;
+    text-align: center;
+    border-radius: 30px;
+    width: 100px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.reliseDiv {
+    border-radius: 50px;
+    display: flex;
+    height: 180px;
+    width: 80%;
+    padding: 30px;
+    align-items: center;
+    min-width: 380px !important;
+    cursor: pointer;
+    /* Центрирование содержимого по вертикали */
+}
+
+.imgOfReliseMini {
+    border-radius: 10px;
+    height: 100%;
+}
+
+.info_bout_relise_mini {
+    margin-left: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info_bout_relise_mini>div {
+    display: block;
+    flex-grow: 1;
+    /* Этот блок растягивается */
+}
+
+.raitingMiniRelise {
+    background-color: green;
+    font-size: 40px;
+    height: 50%;
+    max-width: 100px;
+    /* Фиксированная ширина */
+    text-align: center;
+    border-radius: 50px;
+    font-weight: bold;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reliseDiv:hover .imgOfReliseMini {
+    transform: scale(1.1); /* Увеличение картинки на 10% */
+    transition: transform 0.2s ease; /* Плавный переход */
+}
+
+.selectForm{
+    width: 50%;
+    align-items: center;
+    border-radius: 100px;
+    height: 50px;
+    margin-top: 30px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-left:20px;
+}
+
+opt{
+    font-weight: bold;
+}
