@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Releases</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body style="background-color: #101010;">
     <div id="app" align="center">
+        <!-- Форма входа -->
         <div v-if="!loggedIn">
             <h1 style="color: white;">Login</h1>
             <form @submit.prevent="login">
@@ -26,13 +27,27 @@
                 <br>
                 <button style="border-radius: 10px; font-size: 20px;" type="submit">Login</button>
             </form>
-            <p v-if="error">{{ error }}</p>
+            <p v-if="error" style="color: red;">{{ error }}</p>
         </div>
 
+        <!-- Список релизов -->
         <div v-else>
             <h1 style="color: white;">Welcome, {{ username }}!</h1>
             <button @click="logout">Logout</button>
-            <a href="/reliseRate.html">go to rate</a>
+            <a href="/reliseRate.html">rate relise</a>
+            <h2 style="color: white;">Releases</h2>
+
+            <div v-if="releases.length === 0" style="color: white;">
+                No releases found.
+            </div>
+            <ul v-else style="color: white;">
+                <li v-for="release in releases" :key="release.id" style="margin-bottom: 10px;">
+                    <span>{{release.name}} - {{ release.title }},  (ID: {{ release.id }})</span>
+                    <button @click="deleteRelease(release.id)" style="margin-left: 10px;">Delete</button>
+                </li>
+            </ul>
+
+            <p v-if="deleteError" style="color: red;">{{ deleteError }}</p>
         </div>
     </div>
 
@@ -43,7 +58,9 @@
                 username: '',
                 password: '',
                 error: '',
-                loggedIn: false
+                loggedIn: false,
+                releases: [],
+                deleteError: ''
             },
             methods: {
                 login() {
@@ -51,24 +68,49 @@
                         username: this.username,
                         password: this.password
                     })
-                        .then(response => {
-                            this.loggedIn = true;
-                            this.error = '';
-                        })
-                        .catch(error => {
-                            this.error = 'Login failed: Invalid credentials';
-                        });
+                    .then(response => {
+                        this.loggedIn = true;
+                        this.error = '';
+                        this.fetchReleases(); // Получаем релизы после входа
+                    })
+                    .catch(error => {
+                        this.error = 'Login failed: Invalid credentials';
+                    });
                 },
 
                 logout() {
                     axios.post('/logout')
-                        .then(() => {
-                            this.loggedIn = false;
-                            this.username = '';
-                            this.password = '';
-                        });
-                }
+                    .then(() => {
+                        this.loggedIn = false;
+                        this.username = '';
+                        this.password = '';
+                        this.releases = [];
+                    });
+                },
 
+                // Функция для получения всех релизов
+                fetchReleases() {
+                    axios.get('/releases')
+                    .then(response => {
+                        this.releases = response.data;
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+                        this.error = 'Error fetching releases';
+                    });
+                },
+
+                // Функция для удаления релиза
+                deleteRelease(id) {
+                    console.log(id)
+                    axios.delete(`/releases/${id}`)
+                    .then(() => {
+                        this.releases = this.releases.filter(release => release.id !== id);
+                    })
+                    .catch(error => {
+                        this.deleteError = 'Error deleting release';
+                    });
+                }
             }
         });
     </script>

@@ -1,3 +1,4 @@
+/* Стили для рейтинга */
 .raitingFinalClass {
     background-color: green;
     font-size: 40px;
@@ -8,23 +9,39 @@
     font-weight: bold;
 }
 
+/* Стили для карточки релиза */
 .reliseDiv {
     border-radius: 50px;
     display: flex;
     height: 180px;
+    /* Высота карточки */
     width: 80%;
+    /* Ширина карточки */
     padding: 30px;
     align-items: center;
+    /* Центрирование содержимого по вертикали */
     min-width: 380px !important;
     cursor: pointer;
-    /* Центрирование содержимого по вертикали */
+    /* Ограничение размеров карточки */
+    overflow: hidden;
+    /* Скрыть переполнение */
 }
 
+/* Стили для изображения релиза */
 .imgOfReliseMini {
     border-radius: 10px;
-    height: 100%;
+    /* Закругление углов */
+    width: 100px;
+    /* Фиксированная ширина */
+    height: auto;
+    /* Поддержка пропорций */
+    max-width: 100%;
+    /* Максимальная ширина 100% */
+    max-height: 100%;
+    /* Максимальная высота 100% */
 }
 
+/* Информация о релизе */
 .info_bout_relise_mini {
     margin-left: 20px;
     display: flex;
@@ -33,12 +50,14 @@
     align-items: center;
 }
 
+/* Блоки информации о релизе */
 .info_bout_relise_mini>div {
     display: block;
     flex-grow: 1;
     /* Этот блок растягивается */
 }
 
+/* Стили для маленького рейтинга релиза */
 .raitingMiniRelise {
     background-color: green;
     font-size: 40px;
@@ -54,23 +73,300 @@
     align-items: center;
 }
 
+/* Эффект при наведении на изображение */
 .reliseDiv:hover .imgOfReliseMini {
-    transform: scale(1.1); /* Увеличение картинки на 10% */
-    transition: transform 0.2s ease; /* Плавный переход */
+    transform: scale(1.1);
+    /* Увеличение картинки на 10% */
+    transition: transform 0.2s ease;
+    /* Плавный переход */
 }
 
-.selectForm{
-    width: 50%;
-    align-items: center;
+/* Общие стили для формы выбора */
+.selectForm {
+    flex: 1 1 150px;
+    /* Гибкий рост, минимальная ширина 150px */
+    max-width: 200px;
+    /* Максимальная ширина для селекторов */
     border-radius: 100px;
-    height: 50px;
-    margin-top: 30px;
-    font-size: 30px;
+    height: 40px;
+    /* Уменьшенная высота */
+    margin-top: 10px;
+    /* Уменьшенный отступ сверху */
+    font-size: 20px;
+    /* Уменьшенный размер шрифта */
     text-align: center;
     font-weight: bold;
-    margin-left:20px;
+    margin-left: 10px;
+    /* Уменьшенный отступ слева */
 }
 
-opt{
+/* Стиль для заголовка */
+.display-1 {
+    flex: 0 1 100%;
+    /* Заголовок занимает всю ширину */
+    text-align: center;
+    /* Центрирование заголовка */
+}
+
+/* Flexbox настройки для родительского контейнера */
+.d-flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+    /* Позволяет элементам переноситься на следующую строку */
+}
+
+.align-items-center {
+    align-items: center;
+    /* Центрирование по вертикали */
+}
+
+.justify-content-center {
+    justify-content: center;
+    /* Центрирование по горизонтали */
+}
+
+/* Пустое пространство между элементами */
+.gap-20 {
+    gap: 20px;
+    /* Пробел между элементами */
+}
+
+/* Сообщение о отсутствующих релизах */
+.no-releases-message {
+    font-size: 24px;
+    /* Размер шрифта */
     font-weight: bold;
+    /* Жирный шрифт */
+    color: #ffffff;
+    /* Цвет текста */
+    text-align: center;
+    /* Центрирование текста */
+    margin: 20px 0;
+    /* Отступ сверху и снизу */
+    background-color: #202020;
+    /* Фон */
+    border-radius: 10px;
+    /* Закругленные углы */
+    padding: 15px;
+    /* Внутренние отступы */
+    display: inline-block;
+    /* Выравнивание сообщения по содержимому */
+}
+
+/* Стили для блока года */
+.year-block {
+    /* Цвет и толщина обводки */
+    border-radius: 8px;
+    /* Закругление углов */
+    padding: 20px;
+    /* Внутренние отступы */
+    margin: 20px auto;
+    /* Центрирование блока */
+    text-align: center;
+    /* Центрируем текст */
+    background-color: #202020;
+    /* Добавление тени для глубины */
+    width: 90%;
+    /* Увеличиваем ширину блока */
+    max-width: 1500px;
+    /* Увеличиваем максимальную ширину для большего экрана */
+    /* Максимальная ширина для большего экрана */
+}
+
+
+
+/* Стили для типа релиза */
+.release-type {
+    display: flex;
+    flex-direction: column;
+    /* Размещаем тип релиза сверху, а релизы снизу */
+    align-items: center;
+    /* Центрирование по горизонтали */
+    margin-bottom: 20px;
+    /* Отступ снизу */
+}
+
+.release-type h3 {
+    margin-bottom: 10px;
+    /* Отступ между заголовком типа и релизами */
+    font-weight: bold;
+}
+
+/* Стили для названий релизов */
+.release-item h4 {
+    white-space: nowrap;
+    /* Запрещаем перенос текста */
+    overflow: hidden;
+    /* Скрываем текст, который выходит за границы */
+    text-overflow: ellipsis;
+    /* Добавляем многоточие, если текст слишком длинный */
+}
+
+
+/* Стили для элемента релиза */
+.release-item {
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.5);
+
+    /* Центрирование текста */
+    width: 250px;
+    /* Фиксированная ширина для карточек */
+    margin: 10px;
+    /* Отступы между элементами */
+}
+
+/* Общие стили для контейнера релизов */
+.releases-row {
+    display: flex;
+    justify-content: center;
+    /* Центруем элементы */
+    gap: 20px;
+    /* Расстояние между элементами */
+}
+
+/* Стили для круга рейтинга */
+.rating-circle {
+    display: inline-block;
+    background-color: green;
+    /* Зеленый цвет фона */
+    color: white;
+    /* Белый цвет текста */
+    border-radius: 50%;
+    /* Круглая форма */
+    width: 30px;
+    /* Ширина круга */
+    height: 30px;
+    /* Высота круга */
+    line-height: 30px;
+    /* Выравнивание текста по центру */
+    font-weight: bold;
+    /* Жирный шрифт */
+}
+
+/* Стили для элементов в селекторах */
+opt {
+    font-weight: bold;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+/* Стили для обводки изображения релиза */
+.release-image {
+    display: inline-block;
+    /* Чтобы обводка работала */
+    padding: 2px;
+    /* Отступ вокруг изображения */
+    border-radius: 10px;
+    /* Скругление углов для эстетики */
+}
+
+.border-gold {
+    background-color: gold;
+    border: 3px solid gold;
+    /* Золотая обводка */
+}
+
+.border-silver {
+    background-color: silver;
+    border: 3px solid silver;
+    /* Серая обводка */
+}
+
+.border-bronze {
+    background-color: #cd7f32;
+    border: 3px solid #cd7f32;
+    /* Бронзовая обводка */
+}
+
+/* Стили для мобильных устройств */
+@media only screen and (max-width: 600px) {
+
+    /* Стили для рейтинга */
+    .raitingFinalClass {
+        font-size: 20px;
+        width: 60px;
+    }
+
+    /* Карточка релиза */
+    .reliseDiv {
+        height: auto;
+        padding: 15px;
+        width: 100%;
+        flex-direction: column;
+        /* Столбиком для небольших экранов */
+        min-width: auto;
+    }
+
+    /* Стили для изображения релиза */
+    .imgOfReliseMini {
+        width: 80px;
+    }
+
+    /* Информация о релизе */
+    .info_bout_relise_mini {
+        margin-left: 0;
+        margin-top: 10px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* Стили для маленького рейтинга релиза */
+    .raitingMiniRelise {
+        font-size: 20px;
+        width: 60px;
+    }
+
+    /* Стили для селекторов */
+    .selectForm {
+        width: 100%;
+        font-size: 16px;
+        height: 35px;
+    }
+
+    /* Стили для заголовков */
+    .display-1 {
+        font-size: 24px;
+    }
+
+    /* Элементы релиза */
+    .release-item {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    /* Релизы в строку */
+    .releases-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Увеличиваем ширину для блока года */
+    .year-block {
+        width: 100%;
+    }
+
+    /* Тип релиза */
+    .release-type h3 {
+        font-size: 20px;
+    }
+
+    /* Заголовки релизов */
+    .release-item h4 {
+        font-size: 18px;
+    }
+
+    /* Круг рейтинга */
+    .rating-circle {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+    }
 }

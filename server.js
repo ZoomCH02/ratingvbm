@@ -49,6 +49,94 @@ function downloadImage(url, filename) {
     });
 }
 
+app.get('/releases/:release_id', (req, res) => {
+    const release_id = req.params.release_id; // Это будет 'single'
+    const { year, month } = req.query; // Здесь получаем year и month
+
+    console.log('Release ID:', release_id); // Должно выводить 'single'
+    console.log('Year:', year); // Должно выводить '2024'
+    console.log('Month:', month); // Должно выводить '10'
+
+    let query = `
+        SELECT ra.release_id, ra.user_id, ra.rhymes_imagery, ra.structure_rhythm, ra.style_execution, ra.individuality_charisma, ra.atmosphere_vibe, ra.trendiness_genre_relevance, ra.average_rating, re.title, re.cover_image, re.release_date, re.type, a.name
+        FROM Ratings ra
+        JOIN Releases re ON ra.release_id = re.id
+        JOIN Artists a ON re.artist_id = a.id
+        WHERE re.type = ?
+        AND strftime('%Y', re.release_date) = ? 
+        AND strftime('%m', re.release_date) = ?;
+    
+    `;
+    const params = [release_id]; // Здесь release_id будет 'single'
+
+    // Фильтрация по году
+    if (year) {
+        query += ` AND strftime('%Y', re.release_date) = ?`;
+        params.push(year);
+    }
+
+    // Фильтрация по месяцу
+    if (month) {
+        query += ` AND strftime('%m', re.release_date) = ?`;
+        params.push(month.padStart(2, '0'));
+    }
+    db.all(query, params, (err, ratings) => {
+        console.log(params)
+        if (err) {
+            //console.log(err)
+            return res.status(500).send('Error fetching ratings');
+        }
+
+        console.log('Returned Ratings:', ratings); // Логируем возвращаемые рейтинги
+        res.json(ratings);
+    });
+});
+
+app.get('/top-releases/:year', (req, res) => {
+    const year = req.params.year;
+    console.log(year);
+
+    // SQL запрос для получения топ-3 альбомов, синглов и EP
+    const query = `
+        SELECT *
+        FROM Releases re, Ratings ra, Artists a
+        WHERE strftime('%Y', re.release_date) = ? AND re.id = ra.release_id AND re.type = ? AND re.artist_id = a.id
+        ORDER BY ra.average_rating DESC
+        LIMIT 3;
+    `;
+
+    const releaseTypes = ['album', 'single', 'ep'];
+    const promises = releaseTypes.map(type => {
+        return new Promise((resolve, reject) => {
+            db.all(query, [year, type], (err, rows) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve({ type, releases: rows });
+            });
+        });
+    });
+
+    Promise.all(promises)
+        .then(results => {
+            const topReleases = {};
+            results.forEach(({ type, releases }) => {
+                topReleases[type] = releases;
+            });
+            res.json(topReleases);
+        })
+        .catch(err => {
+            console.error('Error fetching top releases:', err);
+            res.status(500).send('Error fetching top releases');
+        });
+});
+
+
+
+
+
+
+
 // Check if user is authenticated
 function isAuthenticated(req, res, next) {
     if (req.session.user) {
@@ -231,6 +319,25 @@ app.get('/releases/:type', (req, res) => {
         SELECT * FROM Releases re, Ratings ra, Artists a
         WHERE re.type = ? AND re.id = ra.release_id AND a.id = re.artist_id
         ORDER BY ra.average_rating DESC`,
+        [releaseType],
+        (err, releases) => {
+            if (err) {
+                console.log(err)
+                return res.status(500).send('Error fetching releases');
+            }
+            res.json(releases);
+        }
+    );
+});
+
+// Получить все релизы
+app.get('/releases', (req, res) => {
+    const releaseType = req.params.type;
+
+    db.all(`
+    SELECT re.id, a.name, re.title FROM Releases re, Ratings ra, Artists a
+    WHERE re.id = ra.release_id AND a.id = re.artist_id
+    ORDER BY ra.average_rating DESC`,
         [releaseType],
         (err, releases) => {
             if (err) {

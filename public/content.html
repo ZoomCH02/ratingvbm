@@ -88,6 +88,11 @@
             рейтинг
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5" href="top.html" aria-label="A sample content page">
+            топ
+          </a>
+        </li>
         <!-- <li class="nav-item">
           <a class="nav-link fs-5" href="system.html" aria-label="A system message page">
             Вход
@@ -102,14 +107,45 @@
       <div class="row d-flex justify-content-center py-vh-5 pb-0">
         <div class="col-12 col-lg-10 col-xl-8">
           <div class="row">
-            <div class="col-12" style="display: flex;">
+            <div class="col-12 d-flex flex-wrap align-items-center justify-content-center" style="gap: 20px;">
               <h1 class="display-1 fw-bold">топ релизов</h1>
               <select class="selectForm" align="center" onchange="handleSelectChange(this)">
-                <option class="opt">альбом</option>
-                <option class="opt">ep</option>
-                <option class="opt">сингл</option>
+                  <option class="opt">альбом</option>
+                  <option class="opt">ep</option>
+                  <option class="opt">сингл</option>
               </select>
-            </div>
+              <select class="selectForm" align="center" id="yearFilter" onchange="applyDateFilter()">
+                  <script>
+                      const currentYear = new Date().getFullYear();
+                      for (let i = 0; i < 3; i++) {
+                          document.write(`<option value="${currentYear - i}">${currentYear - i}</option>`);
+                      }
+                      document.getElementById('yearFilter').value = currentYear; // Установить текущий год по умолчанию
+                  </script>
+              </select>
+              <select class="selectForm" align="center" id="monthFilter" onchange="applyDateFilter()">
+                  <script>
+                      const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
+                      document.write(`
+                          <option value="01">Январь</option>
+                          <option value="02">Февраль</option>
+                          <option value="03">Март</option>
+                          <option value="04">Апрель</option>
+                          <option value="05">Май</option>
+                          <option value="06">Июнь</option>
+                          <option value="07">Июль</option>
+                          <option value="08">Август</option>
+                          <option value="09">Сентябрь</option>
+                          <option value="10">Октябрь</option>
+                          <option value="11">Ноябрь</option>
+                          <option value="12">Декабрь</option>
+                      `);
+                      document.getElementById('monthFilter').value = currentMonth; // Установить текущий месяц по умолчанию
+                  </script>
+              </select>
+          </div>
+          
+
           </div>
         </div>
         <div class="col-12 col-lg-10 col-xl-8">
